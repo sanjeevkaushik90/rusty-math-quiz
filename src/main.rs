@@ -1,15 +1,19 @@
+#![allow(warnings)]
+
+
 use rand::Rng;
 use std::io;
 
 fn main() {
-    let mut rng = rand::rng();
+    let mut rng = rand::thread_rng();
 
     
-    let a: i32 = rng.random_range(1..=100);
-    let b: i32 = rng.random_range(1..=100);
+    let a: i32 = rng.gen_range(1..=100);
+    let b: i32 = rng.gen_range(1..=100);
 
     
-    let operation: u8 = rng.random_range(0..3);
+    loop{
+        let operation: u8 = rng.gen_range(0..4);
 
     let (question, correct_answer) = match operation {
         0 => (format!("{} + {}", a, b), a + b),
@@ -18,7 +22,7 @@ fn main() {
         3 => {
            
             let dividend = a * b;
-            (format!("{} / {}", dividend, b), dividend / b)
+            (format!("{} / {}", a, b), a / b)
         }
         _ => unreachable!(),
     };
@@ -34,5 +38,6 @@ fn main() {
         println!("Correct!");
     } else {
         println!("Wrong! The correct answer is {}", correct_answer);
+    }
     }
 }
